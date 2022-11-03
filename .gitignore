@@ -2,11 +2,12 @@
 __pycache__/
 *.py[cod]
 *$py.class
-.idea/
+.idea
 # C extensions
 *.so
 
 # Distribution / packaging
+Testthoi
 .Python
 build/
 develop-eggs/

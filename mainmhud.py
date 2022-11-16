@@ -103,9 +103,8 @@ y_pred = clf.predict(X_test)
 total_acc = 0
 print("Da xuat ket qua tu test.csv ra file")
 
-
-df = pd.DataFrame(y_pred, columns=['Ketqua'])
-df.index.names = ['Id']
-df.to_csv('./Ketqua.csv')
+# df = pd.DataFrame(y_pred, columns=['Ketqua'])
+# df.index.names = ['Id']
+# df.to_csv('./Ketqua.csv')
 
 #Do đã có file Ketqua.csv rồi nên không chạy đoạn chương trình trên

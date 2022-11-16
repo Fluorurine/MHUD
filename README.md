@@ -1,6 +1,6 @@
 <h2> File chính nằm trong ./mainmhud.py </h2>
 <h3>Dữ liệu gồm 2000 phần tử, 20 thuộc tính</h3>
-<p>Model được train từ train.csv. Dự đoán từ test.csv và lưu kết quả vào Ketqua.csv</p>
+<p>Model được train từ train.csv. Dự đoán từ test.csv và lưu kết quả vào Ketqua.csv (dựa vào cột id) </p>
 <p>
 <p><b>Các thuộc tính đặc trưng là :</b></p>
 <i>

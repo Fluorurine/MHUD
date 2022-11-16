@@ -1,6 +1,6 @@
-# MHUD_Test
-<h2> Đây là làm chơi MHUD </h2>
+<h2> File chính nằm trong ./mainmhud.py </h2>
 <h3>Dữ liệu gồm 2000 phần tử, 20 thuộc tính</h3>
+<p>Model được train từ train.csv. Dự đoán từ test.csv và lưu kết quả vào Ketqua.csv</p>
 <p>
 <p><b>Các thuộc tính đặc trưng là :</b></p>
 <i>

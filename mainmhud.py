@@ -26,8 +26,10 @@ print("Dataset co cot trong (NaN) khong ?", data.isnull().any().any())
 from sklearn.metrics import confusion_matrix
 
 #Kiem thu Decision Tree bằng K-Fold (K=10) 10 lần
+print("Bat dau ap dung K-Fold(K=10) 10 lan")
+total_acc_10 = 0
 for i in range(1, 11):
-    print("Lan lap", i)
+    print("Lan thu", i)
     #Khoi tao theo KFold = 10
     kf = KFold(n_splits=10, shuffle=True)
     total_acc = 0
@@ -41,16 +43,16 @@ for i in range(1, 11):
         y_pred = clf.predict(X_test)
         total_acc += accuracy_score(y_test, y_pred) * 100
 
-        #Se them confusion matrix cho moi buoc lap sau
-        # print(confusion_matrix(y_test, y_pred))
-        # print("Do chinh xac cua Decision Tree (gini, maxdepth 9, min_leaf 8) :", accuracy_score(y_test, y_pred) * 100, "%")
+
+
+    print("Do chinh xac cua Decision Tree (gini, maxdepth 9, min_leaf 8) : qua 10 lan lap:", accuracy_score(y_test, y_pred) * 100, "%")
+    total_acc_10+=total_acc/10
 
 
 
 
 
-
-    print("Do chinh xac trung binh cua Decision Tree (gini, maxdepth 9, min_leaf 8) :", total_acc/10   , "%")
+print("Do chinh xac trung binh cua Decision Tree (gini, maxdepth 9, min_leaf 8) :", total_acc/10   , "%")
 
 
 total_acc = 0
@@ -103,9 +105,8 @@ y_pred = clf.predict(X_test)
 total_acc = 0
 print("Da xuat ket qua tu test.csv ra file")
 
-
-df = pd.DataFrame(y_pred, columns=['Ketqua'])
-df.index.names = ['Id']
-df.to_csv('./Ketqua.csv')
+# df = pd.DataFrame(y_pred, columns=['Ketqua'])
+# df.index.names = ['Id']
+# df.to_csv('./Ketqua.csv')
 
 #Do đã có file Ketqua.csv rồi nên không chạy đoạn chương trình trên

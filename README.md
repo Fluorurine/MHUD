@@ -34,3 +34,4 @@
 <p>
 <b>Số lượng:</b>  500 nhãn 0, 500 nhãn 1, 500 nhãn 2, 500 nhãn 3
 </p>
+<p>Vui lòng chờ 30s để kiểm tra có cột trống không</p>

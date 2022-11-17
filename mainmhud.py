@@ -53,8 +53,7 @@ for i in range(1, 11):
 
 
 print("Do chinh xac trung binh cua Decision Tree (gini, maxdepth 9, min_leaf 8) :", total_acc/10   , "%")
-
-
+kf = KFold(n_splits=10, shuffle=True)
 total_acc = 0
 for train_index, test_index in kf.split(data):
 

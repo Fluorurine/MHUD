@@ -43,17 +43,22 @@ for i in range(1, 11):
         y_pred = clf.predict(X_test)
         total_acc += accuracy_score(y_test, y_pred) * 100
 
-
-
     print("Do chinh xac cua Decision Tree (gini, maxdepth 9, min_leaf 8) : qua 10 lan lap:", accuracy_score(y_test, y_pred) * 100, "%")
     total_acc_10+=total_acc/10
 
-
-
-
-
 print("Do chinh xac trung binh cua Decision Tree (gini, maxdepth 9, min_leaf 8) :", total_acc/10   , "%")
 kf = KFold(n_splits=10, shuffle=True)
+total_acc = 0
+for train_index, test_index in kf.split(data):
+    # Lay index theo mang tra ve
+    X_train, X_test = data.iloc[train_index, 0:20], data.iloc[test_index, 0:20]
+    y_train, y_test = data.price_range.iloc[train_index], data.price_range[test_index]
+    clf = DecisionTreeClassifier(criterion="gini", random_state=100, max_depth=9, min_samples_leaf=8)
+    clf.fit(X_train, y_train)
+    y_pred = clf.predict(X_test)
+    total_acc += accuracy_score(y_test, y_pred) * 100
+
+print("Do chinh xac cua Decision Tree (gini, maxdepth 9, min_leaf 8):", accuracy_score(y_test, y_pred) * 100, "%")
 total_acc = 0
 for train_index, test_index in kf.split(data):
 
@@ -64,7 +69,6 @@ for train_index, test_index in kf.split(data):
     GNB.fit(X_train, y_train)
     y_pred = GNB.predict(X_test)
     total_acc += accuracy_score(y_test, y_pred) * 100
-
 
 print("Do chinh xac trung binh cua Naive Bayes theo phan phoi Gaussian :", total_acc/10, "%")
 
@@ -95,10 +99,9 @@ print("Do chinh xac trung binh cua RandomForest (gini, maxdepth 15, min_leaf 4) 
 # từ model đã xây dựng lấy kết quả từ test.csv dự đoán và xuất ra file
 X_train= data.iloc[train_index, 0:20]
 clf = DecisionTreeClassifier(criterion="gini", random_state=100, max_depth=9, min_samples_leaf=8)
-clf.fit(X_train, y_train)
+clf.fit(X_train, data.price_range)
 X_test= pd.read_csv("./test.csv", index_col=0)
 y_pred = clf.predict(X_test)
-
 
 #Nếu cần lưu kết quả vào file dự đoán VD:ketqua.csv thì sử dụng hàm này
 total_acc = 0

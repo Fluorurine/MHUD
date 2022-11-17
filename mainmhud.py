@@ -13,7 +13,11 @@ data = pd.read_csv("./train.csv")
 #          Xem trong Readme.md de biet them ve du lieu
 #
 print("So luong hang, cot trong data (Ke ca nhan):")
+#In ra hinh dang cua du lieu
 print(data.shape)
+
+#In ra bảng du lieu
+print(data)
 
 # in ra mảng chứa số lượng nhãn đặc trưng
 print("So luong nhan dac trung la :", np.unique(data.price_range))
@@ -58,7 +62,7 @@ for train_index, test_index in kf.split(data):
     y_pred = clf.predict(X_test)
     total_acc += accuracy_score(y_test, y_pred) * 100
 
-print("Do chinh xac cua Decision Tree (gini, maxdepth 9, min_leaf 8):", accuracy_score(y_test, y_pred) * 100, "%")
+print("Do chinh xac cua Decision Tree (gini, maxdepth 9, min_leaf 8):", total_acc/10, "%")
 total_acc = 0
 for train_index, test_index in kf.split(data):
 
@@ -97,9 +101,10 @@ print("Do chinh xac trung binh cua RandomForest (gini, maxdepth 15, min_leaf 4) 
 
 #Phan xu ly file csv
 # từ model đã xây dựng lấy kết quả từ test.csv dự đoán và xuất ra file
-X_train= data.iloc[train_index, 0:20]
+X_train= data.iloc[:, 0:20]
+y_train=data.price_range
 clf = DecisionTreeClassifier(criterion="gini", random_state=100, max_depth=9, min_samples_leaf=8)
-clf.fit(X_train, data.price_range)
+clf.fit(X_train, y_train)
 X_test= pd.read_csv("./test.csv", index_col=0)
 y_pred = clf.predict(X_test)
 

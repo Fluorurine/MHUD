@@ -1,3 +1,5 @@
+#Đây là file chính dùng để chạy chương trình
+#link Github: https://github.com/Fluorurine/MHUD_Test
 import pandas as pd
 import numpy as np
 from sklearn.model_selection import KFold
@@ -7,10 +9,11 @@ from sklearn.metrics import accuracy_score
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.ensemble import RandomForestClassifier
 
+#Đọc file
 data = pd.read_csv("./train.csv")
 
 #
-#          Xem trong Readme.md de biet them ve du lieu
+#          Xem trong Readme.md (GitHub) de biet them ve du lieu
 #
 print("So luong hang, cot trong data (Ke ca nhan):")
 #In ra hinh dang cua du lieu
@@ -30,6 +33,7 @@ print("Dataset co cot trong (NaN) khong ?", data.isnull().any().any())
 from sklearn.metrics import confusion_matrix
 
 #Kiem thu Decision Tree bằng K-Fold (K=10) 10 lần
+
 print("Bat dau ap dung K-Fold(K=10) 10 lan")
 total_acc_10 = 0
 for i in range(1, 11):
@@ -46,23 +50,28 @@ for i in range(1, 11):
         clf.fit(X_train, y_train)
         y_pred = clf.predict(X_test)
         total_acc += accuracy_score(y_test, y_pred) * 100
+        # In ra confusion matrix cho tung lan lap
+        # print(confusion_matrix(y_test, y_pred, labels=np.unique(y_test)))
+    print("Do chinh xac cua Decision Tree (gini, maxdepth 9, min_leaf 8) :",round(total_acc/10,2), "%")
+    total_acc_10 += total_acc / 10
 
-    print("Do chinh xac cua Decision Tree (gini, maxdepth 9, min_leaf 8) : qua 10 lan lap:", accuracy_score(y_test, y_pred) * 100, "%")
-    total_acc_10+=total_acc/10
 
-print("Do chinh xac trung binh cua Decision Tree (gini, maxdepth 9, min_leaf 8) :", total_acc/10   , "%")
+
+print("Do chinh xac trung binh cua Decision Tree sau 10 lan lap (gini, maxdepth 9, min_leaf 8) :", round(total_acc_10/10,2), "%")
+
+
 kf = KFold(n_splits=10, shuffle=True)
 total_acc = 0
 for train_index, test_index in kf.split(data):
     # Lay index theo mang tra ve
     X_train, X_test = data.iloc[train_index, 0:20], data.iloc[test_index, 0:20]
     y_train, y_test = data.price_range.iloc[train_index], data.price_range[test_index]
-    clf = DecisionTreeClassifier(criterion="gini", random_state=100, max_depth=9, min_samples_leaf=8)
+    clf = DecisionTreeClassifier(criterion="gini", random_state=100, max_depth=8, min_samples_leaf=6)
     clf.fit(X_train, y_train)
     y_pred = clf.predict(X_test)
     total_acc += accuracy_score(y_test, y_pred) * 100
 
-print("Do chinh xac cua Decision Tree (gini, maxdepth 9, min_leaf 8):", total_acc/10, "%")
+print("Do chinh xac cua Decision Tree (gini, maxdepth 8, min_leaf 6):", total_acc/10, "%")
 total_acc = 0
 for train_index, test_index in kf.split(data):
 
@@ -103,7 +112,7 @@ print("Do chinh xac trung binh cua RandomForest (gini, maxdepth 15, min_leaf 4) 
 # từ model đã xây dựng lấy kết quả từ test.csv dự đoán và xuất ra file
 X_train= data.iloc[:, 0:20]
 y_train=data.price_range
-clf = DecisionTreeClassifier(criterion="gini", random_state=100, max_depth=9, min_samples_leaf=8)
+clf = DecisionTreeClassifier(criterion="gini", random_state=100, max_depth=8, min_samples_leaf=6)
 clf.fit(X_train, y_train)
 X_test= pd.read_csv("./test.csv", index_col=0)
 y_pred = clf.predict(X_test)
